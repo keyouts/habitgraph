@@ -1,4 +1,4 @@
-    let chart;
+ let chart;
 
     function getDayLabels() {
       return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -13,7 +13,7 @@
         .filter(([name]) => selectedHabit === 'all' || name === selectedHabit)
         .map(([name, data]) => ({
           label: name,
-          data: data.map(val => val ? 1 : 0),
+          data: Array.isArray(data) ? data.map(val => val ? 1 : 0) : [],
           borderColor: '#000',
           backgroundColor: '#fff',
           tension: 0.3
@@ -47,6 +47,7 @@
     function populateHabitFilter() {
       const habits = JSON.parse(localStorage.getItem('habits')) || {};
       const filter = document.getElementById('habitFilter');
+      filter.innerHTML = '<option value="all">All Habits</option>';
       Object.keys(habits).forEach(habit => {
         const option = document.createElement('option');
         option.value = habit;
@@ -55,5 +56,16 @@
       });
     }
 
+    function autoRefresh() {
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'habits') {
+          populateHabitFilter();
+          renderChart();
+        }
+      });
+    }
+
     populateHabitFilter();
     renderChart();
+    autoRefresh();
+
