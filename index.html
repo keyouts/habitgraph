@@ -4,19 +4,21 @@
   <meta charset="UTF-8">
   <title>Habit Line Graph</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-       <link rel="stylesheet" href="./style.css"></head>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <h1>Habit Trends</h1>
-  <div class="graph-container">
+  <h1 id="habitTrendsHeading">Habit Trends</h1>
+  <div class="graph-container" role="region" aria-labelledby="habitTrendsHeading" aria-describedby="habitGraphDescription">
+    <p id="habitGraphDescription" class="visually-hidden">
+      This graph displays trends in habit tracking over time. Use the dropdown to filter by habit and the refresh button to update the graph.
+    </p>
     <label for="habitFilter">Filter by Habit:</label>
-    <select id="habitFilter" onchange="renderChart()">
+    <select id="habitFilter" onchange="renderChart()" aria-label="Filter habits">
       <option value="all">All Habits</option>
     </select>
-    <canvas id="habitChart" width="600" height="300"></canvas>
-    <button class="refresh-btn" onclick="renderChart()">Refresh Graph</button>
+    <canvas id="habitChart" width="600" height="300" role="img" aria-label="Line graph showing habit trends over time"></canvas>
+    <button class="refresh-btn" onclick="renderChart()" aria-label="Refresh the habit trend graph">Refresh Graph</button>
   </div>
-<script src="./script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
-
